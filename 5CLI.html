@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5CLI</title>
+  </head>
+  <body>
+    <div class="container">
+      Enter Name :<input type="text" name="name" id="name" /><br />
+      Unit Mark :<input type="number" name="unit-mark" id="unit-mark" /><br />
+      PreFinal Mark :<input
+        type="number"
+        name="pre-final-mark"
+        id="pre-final-mark"
+      /><br />
+      Final Mark :<input type="number" name="final-mark" id="final-mark" />
+      <button type="submit" id="submit-btn">Submit</button>
+      <p id="display"></p>
+    </div>
+    <style>
+      body {
+        background-color: black;
+        font-size: 40px;
+        font-weight: 700;
+        color: white;
+      }
+      button {
+        background-color: rgb(0, 0, 255);
+        color: white;
+        width: 8rem;
+        height: 3.5rem;
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 3rem;
+        margin-left: 15rem;
+        padding: 4px;
+        border-radius: 10px;
+        text-align: center;
+      }
+      button:hover {
+        transform: scale(1.1);
+      }
+      #display {
+        color: white;
+        margin: 2rem;
+        text-transform: capitalize;
+      }
+      .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      input {
+        border-radius: 10px;
+      }
+      #name {
+        margin-left: 3.6rem;
+        font-size: 2rem;
+        padding-left: 1rem;
+        text-transform: capitalize;
+      }
+      #unit-mark {
+        margin-left: 5.1rem;
+        font-size: 2rem;
+        padding-left: 1rem;
+      }
+      #pre-final-mark {
+        margin-left: 9px;
+        font-size: 2rem;
+        padding-left: 1rem;
+      }
+      #final-mark {
+        margin-left: 4.3rem;
+        font-size: 2rem;
+        padding-left: 1rem;
+      }
+    </style>
+
+    <!-- SCRIRT -->
+
+    <script>
+      //Elements
+      let name = document.getElementById("name");
+      let unit = document.getElementById("unit-mark");
+      let preFinal = document.getElementById("pre-final-mark");
+      let final = document.getElementById("final-mark");
+      let submitBtn = document.getElementById("submit-btn");
+      let displayEle = document.getElementById("display");
+      let studentArray = [];
+      let storedArray = [];
+      // AddEventListener
+      submitBtn.addEventListener("click", () => {
+        studentArray = [name.value, unit.value, preFinal.value, final.value];
+        if (name && unit && preFinal && final.value === "") {
+          alert("Please Fill All Data");
+        } else {
+          storedArray.push(studentArray), (name.value = "");
+          (unit.value = ""), (preFinal.value = ""), (final.value = "");
+          console.log(studentArray);
+          console.log(storedArray.length);
+          if (storedArray.length > 4) {
+            alert("Entry limit for 5 students only");
+            const storedMarks = storedArray.sort(
+              (marks1, marks2) => marks2[3] - marks1[3]
+            );
+            console.log(storedMarks);
+            let mark1 = parseInt(storedMarks[0][3]);
+            let mark2 = parseInt(storedMarks[1][3]);
+            let mark3 = parseInt(storedMarks[2][3]);
+            let mark4 = parseInt(storedMarks[3][3]);
+            let mark5 = parseInt(storedMarks[4][3]);
+            let highScore = storedMarks[1][3];
+            let total = mark1 + mark2 + mark3 + mark4 + mark5;
+            let averageMarks = total / 5;
+            let studentName = storedMarks[0][0];
+            displayEle.innerText =
+              studentName +
+              " has scored highest mark(" +
+              highScore +
+              ")" +
+              " and his average is " +
+              averageMarks;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
